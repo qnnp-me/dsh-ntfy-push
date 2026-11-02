@@ -27,14 +27,16 @@ Push DeepSeek Harness task events (approvals, questions, turn ends, errors, suba
 git clone https://github.com/qnnp-me/dsh-ntfy-push.git
 dsh plugin --profile web add file:$PWD/dsh-ntfy-push
 
-# 2) 或直接指定 git 地址（pnpm 会拉取仓库；若提示需要批准构建脚本，
-#    按提示把打印出的包名加进 profile 的 allowBuilds 再重跑）
+# 2) 或直接指定 git 地址（已实测：全新 profile 安装 → 启动正常，无需批准构建脚本）
 dsh plugin --profile web add github:qnnp-me/dsh-ntfy-push
 
 # bundle 层只在启动时组合，安装后重启一次
 supervisorctl -c /path/to/supervisord.conf restart dsh-web
 # 或你平时启动 dsh web 的方式（dsh web / systemd / pm2 ...）
 ```
+
+两条路径都在 `0.2.1-rc.5` 的全新 profile 里实测过：`dsh plugin add` 会自动把包装进
+profile `package.json` 的 `dsh.profile.bundles`，重启后插件加载（日志 `[dsh-ntfy-push] ready`）。
 
 在 DSH 里也可以用 `plugin_manager install_bundle`，target 传 `/path/to/dsh-ntfy-push`（本地 clone）或 `github:qnnp-me/dsh-ntfy-push`。
 
