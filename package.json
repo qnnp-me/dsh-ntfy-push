@@ -1,0 +1,56 @@
+{
+  "name": "dsh-ntfy-push",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Push DeepSeek Harness task events (approval, question, turn end, error, subagent/workflow end) to any ntfy server — self-hosted URL, token/basic/none auth — and answer approvals and questions directly from the phone notification.",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg"
+  ],
+  "icon": "./icon.svg",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-settings-shell"
+      ]
+    }
+  },
+  "peerDependencies": {
+    "react": "*"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qnnp-me/dsh-ntfy-push.git"
+  },
+  "homepage": "https://github.com/qnnp-me/dsh-ntfy-push",
+  "bugs": {
+    "url": "https://github.com/qnnp-me/dsh-ntfy-push/issues"
+  },
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "ntfy",
+    "notifications",
+    "push",
+    "approval",
+    "coral"
+  ]
+}

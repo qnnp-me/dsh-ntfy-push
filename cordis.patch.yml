@@ -1,0 +1,59 @@
+# Insert dsh-ntfy-push into the composed profile.
+#
+# Every value below is a default: the settings page in DSH (设置 → 通知推送)
+# writes runtime overrides to <DSH_HOME>/dsh-ntfy-push/settings.json, which take
+# precedence over this row. Secrets (token / basic password) never live here —
+# they go to the DSH credential store under tokenRef / passwordRef.
+- insert:
+    - id: dsh-ntfy-push
+      name: 'dsh-ntfy-push'
+      config:
+        # your ntfy server, e.g. https://ntfy.example.com or http://192.168.1.10:2586
+        serverUrl: https://ntfy.sh
+        # topic name; empty disables pushing until you configure it
+        topic: ''
+        # none | token | basic
+        authMode: token
+        tokenRef: NTFY_PUSH_TOKEN
+        passwordRef: NTFY_PUSH_PASSWORD
+        username: ''
+        events:
+          - approval
+          - question
+          - turnEnd
+          - error
+          - subagent
+          - workflow
+        priority:
+          approval: 5
+          question: 4
+          turnEnd: 3
+          error: 5
+          subagent: 2
+          workflow: 2
+        tags:
+          approval:
+            - rotating_light
+          question:
+            - question
+          turnEnd:
+            - heavy_check_mark
+          error:
+            - warning
+          subagent:
+            - arrow_forward
+          workflow:
+            - arrow_forward
+        # notification click target; empty = the DSH web address.
+        # Placeholders: {sessionId} {title}
+        clickTemplate: ''
+        reply:
+          enabled: true
+          ttlSec: 600
+        quietHours:
+          enabled: false
+          from: '23:00'
+          to: '08:00'
+          urgentBypass: true
+        minIntervalSec: 20
+        includePreview: true
