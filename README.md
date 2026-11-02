@@ -23,17 +23,20 @@ Push DeepSeek Harness task events (approvals, questions, turn ends, errors, suba
 要求 DSH ≥ `0.2.1-rc.5`（在 `0.2.1-rc.5` 上实测）。
 
 ```bash
-# 直接从 GitHub 安装（推荐）
-dsh plugin --profile web add github:qnnp-me/dsh-ntfy-push
-
-# 或先 clone 再本地安装
+# 1) clone 后按本地包安装（已验证的路径）
 git clone https://github.com/qnnp-me/dsh-ntfy-push.git
 dsh plugin --profile web add file:$PWD/dsh-ntfy-push
+
+# 2) 或直接指定 git 地址（pnpm 会拉取仓库；若提示需要批准构建脚本，
+#    按提示把打印出的包名加进 profile 的 allowBuilds 再重跑）
+dsh plugin --profile web add github:qnnp-me/dsh-ntfy-push
 
 # bundle 层只在启动时组合，安装后重启一次
 supervisorctl -c /path/to/supervisord.conf restart dsh-web
 # 或你平时启动 dsh web 的方式（dsh web / systemd / pm2 ...）
 ```
+
+在 DSH 里也可以用 `plugin_manager install_bundle`，target 传 `/path/to/dsh-ntfy-push`（本地 clone）或 `github:qnnp-me/dsh-ntfy-push`。
 
 装好后刷新网页，进入 **设置 → 通知推送**。
 
